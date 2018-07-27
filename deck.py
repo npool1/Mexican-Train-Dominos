@@ -1,15 +1,5 @@
+from tiles import Tile
 import random
-class Tile(object):
-    def __init__(self, suit1, suit2):
-        self.suit1 = suit1
-        self.suit2 = suit2
-
-    def getSuits(self):
-        print("{} : {}".format(self.suit1, self.suit2))
-        # return tuple(self.suit1, self.suit2)
-
-    def getPipCount():
-        return suit1 + suit2
 
 class Deck(object):
     def __init__(self):
@@ -36,10 +26,10 @@ class Deck(object):
         return self.tiles.pop()
 
 deck = Deck()
-# deck.show()
-# deck.shuffle()
+deck.show()
+deck.shuffle()
 tile = deck.draw()
 tile.getSuits()
-# deck.show()
+deck.show()
 
 
