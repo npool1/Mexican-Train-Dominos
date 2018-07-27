@@ -62,6 +62,8 @@ class gameBoard(object):
         self.playArea = []
         self.deal()
 
+# implementation of Fisher-Yates shuffle 
+
     def shuffle(self):
         for i in range(len(self.tiles)-1,0,-1):
             r = random.randint(0, i)
@@ -77,17 +79,8 @@ class gameBoard(object):
             # Player.players[i].draw(deck)
             # print(Player.players[i].hand.__len__())
 
-        
-
-
-
-# deck = Deck()
-# deck.show()
-# deck.shuffle()
-# tile = deck.draw()
-# tile.getSuits()
-# deck.show()
-
+# *************************************************************
+# code to test object attribute and methods
 deck = Deck()
 gameboard = gameBoard()
 deck.shuffle()
@@ -96,27 +89,25 @@ print(len(deck.tiles))
 bob = Player("Bob")
 sue = Player("Sue")
 adam = Player("Adam")
+gameboard.deal()
 print(Player.players)
 print (Player.players.__len__())
-bob.draw(deck)
-bob.draw(deck)
 print("bob's tiles")
 bob.showHand()
+x = len(bob.hand)
+print("Bob has {} tiles.".format(x))
 sue.draw(deck)
 print("sue's tiles")
 sue.showHand()
+x = len(sue.hand)
+print(" has {} tiles.".format(x))
 adam.draw(deck)
 print("adam's tiles")
 adam.showHand()
-print("dealing!!!!!")
-gameboard.deal()
-print("sue's tiles")
-sue.showHand()
-print("bob's tiles")
-bob.showHand()
-print("adam's tiles")
-adam.showHand()
-print(len(deck.tiles))
+x = len(adam.hand)
+print("Adam has {} tiles.".format(x))
+x = len(deck.tiles)
+print("there are {} tiles left in the deck" .format(x))
 
 
 
