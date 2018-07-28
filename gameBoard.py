@@ -1,16 +1,26 @@
-from tiles import Tile
+from tile import Tile
 from deck import Deck
-from players import Player
+from player import Player
+
+spaces = '    '
+players = []            # Store the players as a list of Player objects
 
 deck = Deck()
-deck.shuffle()
-bob = Player("Bob")
-sue = Player("Sue")
-Adam = Player("Adam")
-print(Player.players)
-print (Player.players.__len__())
-deck.deal()
-bob.draw(deck)
-bob.showHand()
-sue.draw(deck)
-sue.showHand()
+
+players.append(Player("Bob"))
+players.append(Player("Sue"))
+players.append(Player("Adam"))
+
+print('Player list:')
+for _, player in enumerate(players):
+    print('{}{}'.format(spaces, player.name))
+
+print('Deal 5 cards into each player\'s hand')
+for _, player in enumerate(players):
+    for i in range(5):
+        player.draw(deck)
+
+print('Display each player\'s hand')
+for _, player in enumerate(players):
+    print('{}'.format(player.name))
+    player.showHand(spaces)
