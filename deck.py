@@ -18,20 +18,21 @@ class Deck(object):
         self.build()
         self.shuffle()
 
-    # Creates a new deck of 12:12 dominoes and shuffles the deck
+    # Creates a new deck of 12:12 dominoes
     def build(self):
         for i in range(0, 13):
             for j in range(i, 13):
                 self.tiles.append(Tile(i,j))
 
-    def show(self):
-        for t in self.tiles:
-            t.getSuits()
-    
+    # Shuffles a deck of dominoes
     def shuffle(self):
-        for i in range(len(self.tiles)-1,0,-1):
+        for i in range(len(self.tiles)-1, 0, -1):
             r = random.randint(0, i)
             self.tiles[i], self.tiles[r] = self.tiles[r], self.tiles[i]
+
+    def show(self, prepend = ''):
+        for t in self.tiles:
+            print('{}{}'.format(prepend, t.getSuitsAsString()))
     
     def draw(self):
         return self.tiles.pop()
@@ -111,3 +112,5 @@ print("there are {} tiles left in the deck" .format(x))
 
 
 
+    def size(self):
+        return len(self.tiles)
