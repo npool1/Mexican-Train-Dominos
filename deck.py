@@ -9,8 +9,8 @@ class Tile(object):
         print("{} : {}".format(self.suit1, self.suit2))
         # return tuple(self.suit1, self.suit2)
 
-    def getPipCount():
-        return suit1 + suit2
+    def getPipCount(self):
+        return self.suit1 + self.suit2
 
 class Deck(object):
     def __init__(self):
@@ -29,13 +29,20 @@ class Deck(object):
         for i in range(len(self.tiles)-1, 0, -1):
             r = random.randint(0, i)
             self.tiles[i], self.tiles[r] = self.tiles[r], self.tiles[i]
+    
+    def size(self):
+        return self.tiles.__len__()
 
     def show(self, prepend = ''):
         for t in self.tiles:
-            print('{}{}'.format(prepend, t.getSuitsAsString()))
+            print('{}{}'.format(prepend, t.getSuits()))
     
     def draw(self):
-        return self.tiles.pop()
+        if self.size() > 0:
+            return self.tiles.pop()
+        # else:
+        #     print("no more tiles in deck!")
+        
 
 class Player(object):
     players = []
@@ -82,35 +89,35 @@ class gameBoard(object):
 
 # *************************************************************
 # code to test object attribute and methods
-deck = Deck()
-gameboard = gameBoard()
-deck.shuffle()
+# deck = Deck()
+# gameboard = gameBoard()
+# deck.shuffle()
 
-print(len(deck.tiles))
-bob = Player("Bob")
-sue = Player("Sue")
-adam = Player("Adam")
-gameboard.deal()
-print(Player.players)
-print (Player.players.__len__())
-print("bob's tiles")
-bob.showHand()
-x = len(bob.hand)
-print("Bob has {} tiles.".format(x))
-sue.draw(deck)
-print("sue's tiles")
-sue.showHand()
-x = len(sue.hand)
-print(" has {} tiles.".format(x))
-adam.draw(deck)
-print("adam's tiles")
-adam.showHand()
-x = len(adam.hand)
-print("Adam has {} tiles.".format(x))
-x = len(deck.tiles)
-print("there are {} tiles left in the deck" .format(x))
+# print(len(deck.tiles))
+# bob = Player("Bob")
+# sue = Player("Sue")
+# adam = Player("Adam")
+# gameboard.deal()
+# print(Player.players)
+# print (Player.players.__len__())
+# print("bob's tiles")
+# bob.showHand()
+# x = len(bob.hand)
+# print("Bob has {} tiles.".format(x))
+# sue.draw(deck)
+# print("sue's tiles")
+# sue.showHand()
+# x = len(sue.hand)
+# print(" has {} tiles.".format(x))
+# adam.draw(deck)
+# print("adam's tiles")
+# adam.showHand()
+# x = len(adam.hand)
+# print("Adam has {} tiles.".format(x))
+# x = len(deck.tiles)
+# print("there are {} tiles left in the deck" .format(x))
 
 
 
-    def size(self):
-        return len(self.tiles)
+    # def size(self):
+    #     return len(self.tiles)

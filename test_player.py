@@ -24,14 +24,14 @@ print('Tiles in Cameron\'s hand...')
 player2.showHand(spaces)
 
 print('Play the first tile in Nick\'s hand')
-print('{}({})'.format(spaces, player1.play(1).getSuitsAsString()))
+print('{}({})'.format(spaces, player1.play(1).getSuits()))
 print('Play the last tile in Nick\'s hand')
-print('{}({})'.format(spaces, player1.play(4).getSuitsAsString()))
+print('{}({})'.format(spaces, player1.play(4).getSuits()))
 print('Tiles in Nick\'s hand')
 player1.showHand(spaces)
 
 print('Play the third tile in Cameron\'s hand')
-print('{}({})'.format(spaces, player2.play(3).getSuitsAsString()))
+print('{}({})'.format(spaces, player2.play(3).getSuits()))
 print('Tiles in Cameron\'s hand...')
 player2.showHand(spaces)
 

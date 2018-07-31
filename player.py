@@ -16,4 +16,4 @@ class Player(object):
     
     def showHand(self, prepend = ''):
         for i, tile in enumerate(self.hand, 1):
-            print('{}[{}] ({})'.format(prepend, i, tile.getSuitsAsString()))
+            print('{}[{}] ({})'.format(prepend, i, tile.getSuits()))
