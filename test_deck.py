@@ -23,9 +23,9 @@ hand = []
 for _ in range(5):
     hand.append(deck.draw())
 
-print('Output the tiles in my hand using tile.getSuits():')
+print('Output the tiles in my hand using tile.getSuitsAsString():')
 for _, tile in enumerate(hand):
-    print('{}{}'.format(spaces, tile.getSuits()))
+    print('{}{}'.format(spaces, tile.getSuitsAsString()))
 
 print('Output the tiles in my hand using tile.getSuits():')
 for _, tile in enumerate(hand):
@@ -33,17 +33,19 @@ for _, tile in enumerate(hand):
 
 print('Output the pip count for each tile in my hand using tile.getPipCount():')
 for _, tile in enumerate(hand):
-    print('{}{}'.format(spaces, tile.getPipCount()))
+    print('{}{}'.format(spaces, str(tile.getPipCount())))
 
 print('There are {} tiles in the deck'.format(deck.size()))
 print('Calling deck.show()...')
 deck.show(prepend = spaces)
 
+print(deck.size())
+
 print('Call deck.draw() until we draw all of the tiles from the deck...')
 for i in range(deck.size() + 1):    # Test that we can draw from an empty deck (should return None)
     tile = deck.draw()
     if tile:                        # Draw from empty deck returns None, check that we have a valid tile before calling getSuits()
-        tile.getSuits()
+        tile.getSuitsAsString()
     else:
         print('Draw from empty deck returned None')
 

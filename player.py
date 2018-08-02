@@ -1,3 +1,4 @@
+
 from tile import Tile
 from deck import Deck
 
@@ -14,6 +15,17 @@ class Player(object):
         if index in range(0, len(self.hand)):
             return self.hand.pop(index)
     
+    # def flipTile(self, index):
+    #     index -= 1
+    #     if index in range (0, len(self.hand)):
+    #         return tile.flip(self.hand.(index))
+    
     def showHand(self, prepend = ''):
         for i, tile in enumerate(self.hand, 1):
-            print('{}[{}] ({})'.format(prepend, i, tile.getSuits()))
+            print('{}[{}] ({})'.format(prepend, i, tile.getSuitsAsString()))
+
+    def flipTile(self, index):
+        index -= 1          # Subtract 1 from index so that it is in the range [0, len(hand))
+        if index in range(0, len(self.hand)):
+            return self.hand[index].flip()
+            # return tile.getSuitsAsString()

@@ -11,3 +11,7 @@ class Tile(object):
 
     def getPipCount(self):
         return self.suit1 + self.suit2
+    
+    def flip(self):
+        return "{} : {}".format(self.suit2, self.suit1)
+
