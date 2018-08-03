@@ -3,32 +3,42 @@ from deck import Deck
 from player import Player
 from gameBoard import Gameboard
 
-gameboard = Gameboard()
-deck = Deck()
-deck.shuffle()
-spaces = '    '
+def main():
+    gameboard = Gameboard()
 
-print("Welcome to Mexican-Train-Dominos!")
+    spaces = '    '
 
-gameboard.getPlayers()
+    print("Welcome to Mexican-Train-Dominos!")
 
-print("Let's get started. We'll shuffle up the tiles and deal you each {} tiles\n".format(gameboard.numberOfTiles))
+    gameboard.getPlayers()
 
-for i in range (0, len(gameboard.players)):
-    for j in range(1, gameboard.numberOfTiles+1):
-        gameboard.players[i].draw(deck)
+    print("Let's get started. We'll shuffle up the tiles and deal you each {} tiles\n".format(gameboard.numberOfTiles))
 
-print("Here's everybody's hand")
-gameboard.showHands()
-# for i in range (0, len(gameboard.players)):
-#     print("{}'s hand").format(gameboard.players[i].name)
-#     gameboard.players[i].showHand(spaces)
+    gameboard.deal()
 
-# for i in range (0, len(gameboard.players)):      
-#     print('Tiles in {} hand' .format(player[i].name + "'s"))
-#     gameboard.player[i].showHand(spaces)
+    print("Here's everybody's hand")
 
-# print('Tiles in {} hand' .format(player2.name + "'s"))
-# player1.showHand(spaces)
+    gameboard.showHands()
 
-# print(gameboard.checksForDoubles())
+    startingPlayer = gameboard.findLargestDouble()
+
+    gameboard.showTrains()
+
+    gameboard.showHands()
+
+    gameboard.gameLoop(startingPlayer)
+
+
+
+
+    # for i in range (0, len(gameboard.players)):      
+    #     print('Tiles in {} hand' .format(player[i].name + "'s"))
+    #     gameboard.player[i].showHand(spaces)
+
+    # print('Tiles in {} hand' .format(player2.name + "'s"))
+    # player1.showHand(spaces)
+
+    # print(gameboard.checksForDoubles())
+
+if __name__ == '__main__':
+    main()
