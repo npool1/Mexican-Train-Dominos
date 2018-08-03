@@ -1,3 +1,4 @@
+
 from tile import Tile
 import random
 
@@ -13,7 +14,7 @@ class Deck(object):
             for j in range(i, 13):
                 self.tiles.append(Tile(i,j))
 
-    # Shuffles a deck of dominoes
+    # Shuffles a deck of dominoes using Fisher-Yates implementation
     def shuffle(self):
         for i in range(len(self.tiles)-1, 0, -1):
             r = random.randint(0, i)
@@ -31,3 +32,4 @@ class Deck(object):
 
     def size(self):
         return len(self.tiles)
+        

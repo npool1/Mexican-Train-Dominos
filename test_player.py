@@ -20,6 +20,9 @@ for i in range(5):
 print('Tiles in Nick\'s hand')
 player1.showHand(spaces)
 
+print("Flipping third tile in Nick's hand")
+print('{}({})'.format(spaces, player1.flipTile(3)))
+
 print('Tiles in Cameron\'s hand...')
 player2.showHand(spaces)
 

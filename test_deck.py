@@ -39,6 +39,8 @@ print('There are {} tiles in the deck'.format(deck.size()))
 print('Calling deck.show()...')
 deck.show(prepend = spaces)
 
+print(deck.size())
+
 print('Call deck.draw() until we draw all of the tiles from the deck...')
 for i in range(deck.size() + 1):    # Test that we can draw from an empty deck (should return None)
     tile = deck.draw()
