@@ -82,19 +82,18 @@ class Gameboard(object):
         self.players[playerIndex].hand.pop(tileIndex)
 
         return playerIndex
-    
+
     def gameLoop(self, startingPlayer):
         print('Let\'s start the game!')
         currentPlayer = startingPlayer+1
-        availableMoves = {
-            'Mexi-Train': self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString(),
-            'My-Train': self.players[currentPlayer].showLastTileInTrain()
-        }
-            
+        # availableMoves = {
+        # 'Mexi-Train': self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString(),
+        # 'My-Train': self.players[currentPlayer].showLastTileInTrain()
+        # }
         
-        print(availableMoves)
+        # print(availableMoves)
 
-        # "my train" : self.players[currentPlayer].hand[len(hand)-1]
+    # "my train" : self.players[currentPlayer].hand[len(hand)-1]
         while True:
             if currentPlayer == len(self.players):
                 currentPlayer = 0
@@ -105,12 +104,54 @@ class Gameboard(object):
             self.players[currentPlayer].showTrain(spaces)
             print('Mexican train\n')
             print('{}{}'.format(spaces, self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString()))
-            result = raw_input("{}'s turn! If you have a valid tile you can play it on your train or the mexican train otherwise, \
-you must draw a tile\n".format(self.players[currentPlayer].name))
-            if result == "draw":
+            action = raw_input("{}'s turn! If you have a valid tile you can play it on your train or the mexican train otherwise, \
+    you must draw a tile. First type the name of the train line you would like to play on or type draw to pick up another tile.\n".format(self.players[currentPlayer].name))
+            whichTile = raw_input("Ok, you selected {}. Now pick the number of the tile you'd like play".format(action))
+            if action == "draw":
                 self.players[currentPlayer].draw(deck)
                 self.players[currentPlayer].showHand(spaces)
-            else:
-                tileNum = int(result)-1
-                tile = self.players[currentPlayer].hand.pop(tileNum)
-                self.players[currentPlayer].train.append(tile)
+            elif (action == "Mexi-Train"):
+                tileNum = int(whichTile)-1
+                tile = self.players[currentPlayer].hand[tileNum]
+                print(tile.getSuit2())
+                self.players[currentPlayer].hand.pop(tileNum)
+                value = self.mexicanTrain[len(self.mexicanTrain)-1].getSuit2()
+                print(value)
+                if (value == tile.getSuit2()):
+                    self.mexicanTrain.append(tile)
+                    print("Success!!!!!!")
+                else:
+                    print("that's not a valid move")
+        # elif:
+    
+#     def gameLoop(self, startingPlayer):
+#         print('Let\'s start the game!')
+#         currentPlayer = startingPlayer+1
+#         availableMoves = {
+#             'Mexi-Train': self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString(),
+#             'My-Train': self.players[currentPlayer].showLastTileInTrain()
+#         }
+            
+        
+#         print(availableMoves)
+
+#         # "my train" : self.players[currentPlayer].hand[len(hand)-1]
+#         while True:
+#             if currentPlayer == len(self.players):
+#                 currentPlayer = 0
+            
+#             print('Player {}\'s hand\n'.format(self.players[currentPlayer].name))
+#             self.players[currentPlayer].showHand(spaces)
+#             print('Player {}\'s train\n'.format(self.players[currentPlayer].name))
+#             self.players[currentPlayer].showTrain(spaces)
+#             print('Mexican train\n')
+#             print('{}{}'.format(spaces, self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString()))
+#             result = raw_input("{}'s turn! If you have a valid tile you can play it on your train or the mexican train otherwise, \
+# you must draw a tile\n".format(self.players[currentPlayer].name))
+#             if result == "draw":
+#                 self.players[currentPlayer].draw(deck)
+#                 self.players[currentPlayer].showHand(spaces)
+#             else:
+#                 tileNum = int(result)-1
+#                 tile = self.players[currentPlayer].hand.pop(tileNum)
+#                 self.players[currentPlayer].train.append(tile)
