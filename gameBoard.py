@@ -86,14 +86,16 @@ class Gameboard(object):
     def gameLoop(self, startingPlayer):
         print('Let\'s start the game!')
         currentPlayer = startingPlayer+1
-        # hasDrawn = False
-        # firstTurn = True
-        # availableMoves = {
-        # 'Mexi-Train': self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString(),
-        # 'My-Train': self.players[currentPlayer].showLastTileInTrain().getSuitsAsString()
-        # }
+
+        openDouble = False
+        availableMoves = {
+        'Mexi-Train': self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString(),
+        # 'My-Train': self.players[currentPlayer].train[len(train)-1].
+        'My-Train': self.players[currentPlayer].showLastTileInTrain().getSuitsAsString()
+        }
         
-        # print(availableMoves)
+        print("Here's your available moves: {}" .format(availableMoves))
+
 
         while True:
             if currentPlayer == len(self.players):
@@ -145,12 +147,12 @@ class Gameboard(object):
                 whichTile = raw_input("Ok, you selected {}. Now pick the number of the tile you'd like play".format(action))
                 tileNum = int(whichTile)-1
                 tile = self.players[currentPlayer].hand[tileNum]
-                print(tile.getSuit2())
+                print(tile.getSuit1())
                 self.players[currentPlayer].hand.pop(tileNum)
                 value = self.players[currentPlayer].showLastTileInTrain()
+                print(value)
                 value = value.getSuit2()
                 # value = self.players[currentPlayer].train[len(train)-1].getSuit2()
-
                 print(value)
                 if (value == tile.getSuit1()):
                     self.players[currentPlayer].train.append(tile)

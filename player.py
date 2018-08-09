@@ -23,7 +23,6 @@ class Player(object):
         lastTile = self.train[len(self.train)-1]
         # return lastTile.getSuitsAsString()
         return lastTile
-    
     def showHand(self, prepend = ''):
         for i, tile in enumerate(self.hand, 1):
             print('{}[{}] ({})'.format(prepend, i, tile.getSuitsAsString()))
