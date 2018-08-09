@@ -82,19 +82,21 @@ class Gameboard(object):
         self.players[playerIndex].hand.pop(tileIndex)
 
         return playerIndex
-    
+
     def gameLoop(self, startingPlayer):
         print('Let\'s start the game!')
         currentPlayer = startingPlayer+1
-        availableMoves = {
-            'Mexi-Train': self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString(),
-            'My-Train': self.players[currentPlayer].showLastTileInTrain()
-        }
-            
-        
-        print(availableMoves)
 
-        # "my train" : self.players[currentPlayer].hand[len(hand)-1]
+        openDouble = False
+        availableMoves = {
+        'Mexi-Train': self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString(),
+        # 'My-Train': self.players[currentPlayer].train[len(train)-1].
+        'My-Train': self.players[currentPlayer].showLastTileInTrain().getSuitsAsString()
+        }
+        
+        print("Here's your available moves: {}" .format(availableMoves))
+
+
         while True:
             if currentPlayer == len(self.players):
                 currentPlayer = 0
@@ -105,12 +107,56 @@ class Gameboard(object):
             self.players[currentPlayer].showTrain(spaces)
             print('Mexican train\n')
             print('{}{}'.format(spaces, self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString()))
-            result = raw_input("{}'s turn! If you have a valid tile you can play it on your train or the mexican train otherwise, \
-you must draw a tile\n".format(self.players[currentPlayer].name))
-            if result == "draw":
+            action = raw_input("{}'s turn! If you have a valid tile you can play it on your train or the mexican train otherwise, \
+    you must draw a tile. First type the name of the train line you would like to play on or type draw to pick up another tile.\n".format(self.players[currentPlayer].name))
+
+            if action == "draw" and self.players[currentPlayer].hasDrawn == False:
                 self.players[currentPlayer].draw(deck)
                 self.players[currentPlayer].showHand(spaces)
-            else:
-                tileNum = int(result)-1
-                tile = self.players[currentPlayer].hand.pop(tileNum)
-                self.players[currentPlayer].train.append(tile)
+                self.players[currentPlayer].hasDrawn = True
+            elif (action == "draw" and hasDrawn == True):
+                text = raw_input("Sorry you've already drawn this turn. If you can't make a move type 'done.'")
+                if (text == "done"):
+                    self.players[currentPlayer].hasDrawn = False
+                    self.players[currentPlayer].firstTurn = False
+                    currentPlayer += 1
+            # allows player to flip tiles in their hand
+            elif (action == "flip"):
+                whichTile = int(raw_input("Please enter the number of the tile you'd like to flip\n"))
+                toFlip = self.players[currentPlayer].hand[whichTile -1].flip()
+                self.players[currentPlayer].hand[whichTile-1] = toFlip
+            # plays selected tile on mexican train line if selection is valid
+            elif (action == "Mexi-Train"):
+                whichTile = raw_input("Ok, you selected {}. Now pick the number of the tile you'd like play".format(action))
+                tileNum = int(whichTile)-1
+                tile = self.players[currentPlayer].hand[tileNum]
+                # print(tile.getSuit2())
+                self.players[currentPlayer].hand.pop(tileNum)
+                value = self.mexicanTrain[len(self.mexicanTrain)-1].getSuit2()
+                # print(value)
+                if (value == tile.getSuit1()):
+                    self.mexicanTrain.append(tile)
+                    # self.players[currentPlayer].isOpen = False
+                    print("Success!!!!!!")
+                    currentPlayer += 1
+                else:
+                    print("Sorry, that's not a valid move")
+                    # self.players[currentPlayer].isOpen = True
+            # plays selected tile on players own train line if selection is valid
+            elif (action == "My-Train"):
+                whichTile = raw_input("Ok, you selected {}. Now pick the number of the tile you'd like play".format(action))
+                tileNum = int(whichTile)-1
+                tile = self.players[currentPlayer].hand[tileNum]
+                print(tile.getSuit1())
+                self.players[currentPlayer].hand.pop(tileNum)
+                value = self.players[currentPlayer].showLastTileInTrain()
+                print(value)
+                value = value.getSuit2()
+                # value = self.players[currentPlayer].train[len(train)-1].getSuit2()
+                print(value)
+                if (value == tile.getSuit1()):
+                    self.players[currentPlayer].train.append(tile)
+                    print("Success!!!!!!")
+                    currentPlayer += 1
+                else:
+                    print("Sorry, that's not a valid move")
