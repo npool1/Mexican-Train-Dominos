@@ -4,6 +4,7 @@ from player import Player
 from gameBoard import Gameboard
 
 def main():
+    
     gameboard = Gameboard()
 
     spaces = '    '
@@ -25,6 +26,8 @@ def main():
     gameboard.showTrains()
 
     gameboard.showHands()
+
+    # gameboard.gameboardToJson()
 
     gameboard.gameLoop(startingPlayer)
 

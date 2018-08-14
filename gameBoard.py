@@ -14,6 +14,25 @@ class Gameboard(object):
         self.players = []            # Store the players as a list of Player objects
         self.mexicanTrain = []
 
+    def gameboardToJson(self):
+        jsonString = '{['
+        for i in range(0, len(self.players)):
+            jsonString += '{\"name\": \"' + self.players[i].name + '\",\"train\": ['
+            for j in range(0, len(self.players[i].train)):
+                jsonString += self.players[i].train[j].getSuitsAsString()
+            jsonString += '],\"hand\": ['
+            for j in range(0, len(self.players[i].hand)):
+                jsonString += self.players[i].hand[j].getSuitsAsString()
+                jsonString += ', '
+            jsonString = jsonString[:-2]
+            jsonString += ']},'
+        jsonString += '\"name\": \"Mexi-Train\", \"train\": ['
+        for j in range(0, len(self.mexicanTrain)):
+            jsonString += self.mexicanTrain[j].getSuitsAsString() 
+        jsonString += ']}]}'
+
+        print(jsonString)
+
     def getPlayers(self):
         while (True):
             self.numberOfPlayers = raw_input("How many people are playing today?\n>")
@@ -86,15 +105,17 @@ class Gameboard(object):
     def gameLoop(self, startingPlayer):
         print('Let\'s start the game!')
         currentPlayer = startingPlayer+1
+        if (currentPlayer > len(self.players)):
+            currentPlayer = 0
 
         openDouble = False
-        availableMoves = {
-        'Mexi-Train': self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString(),
+        # availableMoves = {
+        # 'Mexi-Train': self.mexicanTrain[len(self.mexicanTrain)-1].getSuitsAsString(),
         # 'My-Train': self.players[currentPlayer].train[len(train)-1].
-        'My-Train': self.players[currentPlayer].showLastTileInTrain().getSuitsAsString()
-        }
+        # 'My-Train': self.players[currentPlayer].showLastTileInTrain().getSuitsAsString()
+        # }
         
-        print("Here's your available moves: {}" .format(availableMoves))
+        # print("Here's your available moves: {}" .format(availableMoves))
 
 
         while True:
@@ -114,7 +135,7 @@ class Gameboard(object):
                 self.players[currentPlayer].draw(deck)
                 self.players[currentPlayer].showHand(spaces)
                 self.players[currentPlayer].hasDrawn = True
-            elif (action == "draw" and hasDrawn == True):
+            elif (action == "draw" and self.players[currentPlayer].hasDrawn == True):
                 text = raw_input("Sorry you've already drawn this turn. If you can't make a move type 'done.'")
                 if (text == "done"):
                     self.players[currentPlayer].hasDrawn = False
@@ -144,6 +165,7 @@ class Gameboard(object):
                     # self.players[currentPlayer].isOpen = True
             # plays selected tile on players own train line if selection is valid
             elif (action == "My-Train"):
+                playerName = self.players[currentPlayer].name
                 whichTile = raw_input("Ok, you selected {}. Now pick the number of the tile you'd like play".format(action))
                 tileNum = int(whichTile)-1
                 tile = self.players[currentPlayer].hand[tileNum]
@@ -157,6 +179,10 @@ class Gameboard(object):
                 if (value == tile.getSuit1()):
                     self.players[currentPlayer].train.append(tile)
                     print("Success!!!!!!")
+                    if tile.isDouble() == True:
+                        openDouble = True
+                        availableMoves = { "test" : self.players[currentPlayer].train }
+                        print (availableMoves)
                     currentPlayer += 1
                 else:
                     print("Sorry, that's not a valid move")

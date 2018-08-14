@@ -14,6 +14,10 @@ class Tile(object):
 
     def getSuitsAsString(self):
         return "{} : {}".format(self.suit1, self.suit2)
+    
+    def isDouble(self):
+        if self.suit1 == self.suit2:
+            return True
 
     def getPipCount(self):
         return self.suit1 + self.suit2
