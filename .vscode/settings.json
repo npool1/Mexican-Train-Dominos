@@ -1,4 +1,4 @@
 {
     "python.linting.enabled": false,
-    "python.pythonPath": "/Users/cameron/anaconda2/envs/env-django/bin/python"
+    "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.7/bin/python3"
 }
