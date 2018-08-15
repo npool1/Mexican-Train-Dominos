@@ -125,10 +125,16 @@ class Gameboard(object):
         print(valueToMatch)
         if (valueToMatch == tileInHand.getSuit1()):
             self.players[currentPlayer].hand.pop(tileNum)
-            self.players[currentPlayer].train.append(tile)
+            self.players[currentPlayer].train.append(tileInHand)
             print("Success!!!!!!")
         else:
             print("It seems like that's not a valid move")
+            self.showAvailableActions()
+
+    def flip(self, currentPlayer):
+        whichTile = int(raw_input("Please enter the number of the tile you'd like to flip\n"))
+        toFlip = self.players[currentPlayer].hand[whichTile -1].flip()
+        self.players[currentPlayer].hand[whichTile-1] = toFlip
 
 
     def gameLoop(self, startingPlayer):
@@ -140,17 +146,25 @@ class Gameboard(object):
             currentPlayer = 0
         
         print('Let\'s start the game!')
+        print("It's {}'s turn! Since it's the first round you can play as many tiles on your own train as possible. Here is your train:\n".format(self.players[currentPlayer].name))
 
-        if isFirstTurn == True:
+        while isFirstTurn == True:
             self.availableActions = ["Play a tile on My-Train", "Flip  a tile", "End Turn"];
-            print("It's {}'s turn! Since it's the first round you can play as many tiles on your own train as possible. Here is your train:\n".format(self.players[currentPlayer].name))
+            print("Since it's the first round you can play as many tiles on your own train as possible. Here is your train:\n")
             self.players[currentPlayer].showTrain()
             print("\nAnd here are your tiles: \n")
             self.players[currentPlayer].showHand()
+                
             move = (self.showAvailableActions())
+            
             if move == '1':
                 self.myTrain(currentPlayer)
-            #isFirstTurn = False;
+            elif move == '2':
+                self.flip(currentPlayer)
+            elif move == '3':
+                isFirstTurn = False;
+            else:
+                print("It looks like that's not a valid move.")
 
         
         
